@@ -1,0 +1,223 @@
+[
+    {
+        "key": "immigration",
+        "label": "Immigration",
+        "keywords": [
+            "immigration",
+            "undocumented"
+        ],
+        "bigrams": ["illegal immigration"]
+    },
+    {
+        "key": "social_security",
+        "label": "Social Security",
+        "keywords": ["entitlements"],
+        "bigrams": ["social security"]
+    },
+    {
+        "key": "education",
+        "label": "Education",
+        "keywords": [
+            "education"
+        ],
+        "bigrams": ["common core", "higher education", "student debt"]
+    },
+    {
+        "key": "taxes",
+        "label": "Taxes",
+        "keywords": [
+            "tax"
+        ],
+        "bigrams": [
+            "tax reform",
+            "income tax",
+            "capital gains",
+            "carried interest"
+        ]
+    },
+    {
+        "key": "economy",
+        "label": "Economy",
+        "keywords": [
+            "economy",
+            "unemployment",
+            "jobs",
+            "trade"
+        ],
+        "bigrams": []
+    },
+    {
+        "key": "same_sex_marriage",
+        "label": "Same-Sex Marriage",
+        "keywords": [
+            "marriage",
+            "same-sex"
+        ],
+        "bigrams": []
+    },
+    {
+        "key": "health_care",
+        "label": "Health Care",
+        "keywords": [
+            "health",
+            "health-care",
+            "obamacare"
+        ],
+        "bigrams": [
+            "health care",
+            "health insurance",
+            "affordable care act"
+        ]
+    },
+    {
+        "key": "gun_control",
+        "label": "Gun Control",
+        "keywords": [
+            "gun"
+        ],
+        "bigrams": [
+            "gun control",
+            "gun right",
+            "gun law"
+        ]
+    },
+    {
+        "key": "climate_change",
+        "label": "Climate Change",
+        "keywords": [
+            "environment",
+            "climate",
+            "warming",
+            "energy",
+            "greenhouse",
+            "methane",
+            "oil",
+            "coal",
+            "atmosphere"
+        ],
+        "bigrams": [
+            "climate change",
+            "global warming",
+            "carbon dioxide",
+            "greenhouse gas",
+            "fossil fuel",
+            "natural gas",
+            "solar power",
+            "wind power",
+            "natural resources"
+        ]
+    },
+    {
+        "key": "foreign_policy",
+        "label": "Foreign Policy",
+        "keywords": [],
+        "bigrams": [
+            "foreign policy",
+            "foreign affairs"
+        ]
+    },
+    {
+        "key": "women_rights",
+        "label": "Women's Rights",
+        "keywords": [
+            "women",
+            "abortion"
+        ],
+        "bigrams": [
+            "women's right"
+        ]
+    },
+    {
+        "key": "government_reform",
+        "label": "Government Reform",
+        "keywords": [
+            "washington"
+        ],
+        "bigrams": [
+            "government reform"
+        ]
+    },
+    {
+        "key": "security",
+        "label": "Security",
+        "keywords": [
+            "security",
+            "terrorism",
+            "crime",
+            "al-qaeda",
+            "daesh",
+            "isil",
+            "isis",
+            "terrorist"
+        ],
+        "bigrams": [
+            "national security",
+            "homeland security"
+        ]
+    },
+    {
+        "key": "minorities",
+        "label": "Minorities",
+        "keywords": [
+            "race",
+            "racism",
+            "minority",
+            "minorities"
+        ],
+        "bigrams": [
+            "civil rights"
+        ]
+    },
+    {
+        "key": "minimum_wage",
+        "label": "Minimum Wage",
+        "keywords": [
+            "wage"
+        ],
+        "bigrams": [
+            "minimum wage"
+        ]
+    },
+    {
+        "key": "income_inequality",
+        "label": "Income Inequality",
+        "keywords": [
+            "wealth",
+            "poverty",
+            "homeless"
+        ],
+        "bigrams": [
+            "income inequality",
+            "wage gap",
+            "income distribution"
+        ]
+    },
+    {
+        "key": "lgbtq",
+        "label": "LGBTQ",
+        "keywords": [
+            "lgbt"
+        ],
+        "bigrams": []
+    },
+    {
+        "key": "drugs",
+        "label": "Drugs",
+        "keywords": [
+            "overdose",
+            "drug",
+            "cocaine",
+            "weed",
+            "marijuana"
+        ],
+        "bigrams": []
+    },
+    {
+        "key": "infrastructure",
+        "label": "Infrastructure",
+        "keywords": [
+            "infrastructure"
+        ],
+        "bigrams": []
+    }
+]
