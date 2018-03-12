@@ -6,7 +6,7 @@ import ca_scraper.utils.RAKE
 RAKE_STOPLIST = 'ca_scraper/utils/stoplists/SmartStoplist.txt'
 import json
 from scrapy.exceptions import DropItem
-from ca_scraper.items import Article
+from ca_scraper.items import Article, Legislator, PressRelease
 # Define your item pipelines here
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
@@ -18,6 +18,10 @@ class ArticleAnalysisPipeline(object):
    def process_item(self, item, spider):
       if isinstance(item, Article):
          return self.analyzeArticle(item, spider)
+      elif isinstance(item, Legislator):
+         return item
+      elif isinstance(item, PressRelease):
+         return item
    def analyzeArticle(self, item, spider):
       existing_issues, trigger_terms = self.find_issues(item.get('content'))
       if not trigger_terms:

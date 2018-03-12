@@ -6,7 +6,6 @@ from scrapy.item import Item, Field
 # https://doc.scrapy.org/en/latest/topics/items.html
 
 class Article(Item):
-    """Livingsocial container (dictionary-like object) for scraped data"""
     title = Field()
     source = Field()
     url = Field()
@@ -18,3 +17,24 @@ class Article(Item):
     rake_keywords = Field()
     blob_sentiment = Field()
     nltk_sentiment = Field()
+
+class PressRelease(Item):
+    title = Field()
+    url = Field()
+    legislator = Field()
+    content = Field()
+    published = Field()
+    issues = Field()
+    blob_keywords = Field()
+    rake_keywords = Field()
+    blob_sentiment = Field()
+    nltk_sentiment = Field()
+
+class Legislator(Item):
+    state = Field()
+    house = Field()
+    district = Field()
+    party = Field()
+    name = Field()
+    official_site_url = Field()
+    img_src = Field()

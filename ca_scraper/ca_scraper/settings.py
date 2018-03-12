@@ -11,7 +11,7 @@
 
 BOT_NAME = 'ca_scraper'
 
-SPIDER_MODULES = ['ca_scraper.spiders']
+SPIDER_MODULES = ['ca_scraper.spiders.newspapers','ca_scraper.spiders.legislators']
 NEWSPIDER_MODULE = 'ca_scraper.spiders'
 
 

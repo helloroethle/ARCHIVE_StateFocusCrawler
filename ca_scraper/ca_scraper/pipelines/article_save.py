@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from sqlalchemy.orm import sessionmaker
-from ca_scraper.models import Articles, db_connect, create_articles_table
-from ca_scraper.items import Article
+from ca_scraper.models import Articles, Legislators, PressReleases, db_connect, create_articles_table
+from ca_scraper.items import Article, Legislator, PressRelease
 # Define your item pipelines here
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
@@ -14,12 +14,42 @@ class ArticleSavePipeline(object):
    def process_item(self, item, spider):
       if isinstance(item, Article):
          return self.handleArticle(item, spider)
+      elif isinstance(item, Legislator):
+         return self.handleLegislator(item, spider)
+      elif isinstance(item, PressRelease):
+         return self.handlePressRelease(item, spider)
    def handleArticle(self, item, spider):
       print('****** article end *******')
       session = self.Session()
       article = Articles(**item)
       try:
          session.add(article)
+         session.commit()
+      except:
+         session.rollback()
+         raise
+      finally:
+         session.close()
+      return item
+   def handlePressRelease(self, item, spider):
+      session = self.Session()
+      press_release = PressReleases(**item)
+      try:
+         session.add(press_release)
+         session.commit()
+      except:
+         session.rollback()
+         raise
+      finally:
+         session.close()
+      return item
+   def handleLegislator(self, item, spider):
+
+      print(item)
+      session = self.Session()
+      legislator = Legislators(**item)
+      try:
+         session.add(legislator)
          session.commit()
       except:
          session.rollback()

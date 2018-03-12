@@ -19,6 +19,37 @@ def create_articles_table(engine):
     DeclarativeBase.metadata.create_all(engine)
 
 
+class Legislators(DeclarativeBase):
+    """Sqlalchemy articles model"""
+    __tablename__ = "legislators"
+
+    id = Column(Integer, primary_key=True)
+    state = Column('state', String)
+    house = Column('house', String)
+    district = Column('district', String)
+    party = Column('party', String)
+    name = Column('name', String)
+    official_site_url = Column('official_site_url', String)
+    img_src = Column('img_src', String)
+
+
+class PressReleases(DeclarativeBase):
+    """Sqlalchemy articles model"""
+    __tablename__ = "press_releases"
+
+    id = Column(Integer, primary_key=True)
+    title = Column('title', String)
+    url = Column('url', String, nullable=True)
+    legislator = Column('legislator', String)
+    content = Column('content', String)
+    published = Column('published', DateTime, nullable=True)
+    issues = Column('issues', String)
+    blob_keywords = Column('blob_keywords', String)
+    rake_keywords = Column('rake_keywords', String)
+    blob_sentiment = Column('blob_sentiment', String)
+    nltk_sentiment = Column('nltk_sentiment', String)
+
+
 class Articles(DeclarativeBase):
     """Sqlalchemy articles model"""
     __tablename__ = "articles"
