@@ -7,6 +7,8 @@ from sqlalchemy import and_
 import time
 from ca_scraper.items import PressRelease
 
+# problem with http://sd09.senate.ca.gov/news/press-releases
+
 class StateSenateDemocratPressReleasesSpider(scrapy.Spider):
     name = 'state_senate_democrat_press_releases'
     def __init__(self):
@@ -25,11 +27,10 @@ class StateSenateDemocratPressReleasesSpider(scrapy.Spider):
       print(self.stats)
 
     def start_requests(self):
-      yield scrapy.Request('http://sd09.senate.ca.gov/news/press-releases', meta={'legie_id':113})
-      # session = self.Session()
-      # for legie in session.query(Legislators).filter(and_(Legislators.party == 'Democrat', Legislators.house == 'Senate')):
-        # if legie.name != 'Vacant':
-          # yield scrapy.Request(legie.official_site_url + '/news/press-releases', meta={'legie_id':legie.id})
+      session = self.Session()
+      for legie in session.query(Legislators).filter(and_(Legislators.party == 'Democrat', Legislators.house == 'Senate')):
+        if legie.name != 'Vacant':
+          yield scrapy.Request(legie.official_site_url + '/news/press-releases', meta={'legie_id':legie.id})
 
     def parse(self, response):
       legie_id = int(response.meta.get('legie_id', 0))

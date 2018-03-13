@@ -1,4 +1,5 @@
 import scrapy
+from scrapy import signals
 from sqlalchemy.orm import sessionmaker
 from ca_scraper.models import Legislators, db_connect, create_articles_table
 from datetime import datetime
@@ -12,18 +13,31 @@ class StateAssemblyRepublicanPressReleasesSpider(scrapy.Spider):
       engine = db_connect()
       create_articles_table(engine)
       self.Session = sessionmaker(bind=engine)
+      self.stats = {}
+
+    @classmethod
+    def from_crawler(cls, crawler, *args, **kwargs):
+      spider = super(StateAssemblyRepublicanPressReleasesSpider, cls).from_crawler(crawler, *args, **kwargs)
+      crawler.signals.connect(spider.spider_closed, signal=signals.spider_closed)
+      return spider
+
+    def spider_closed(self, spider):
+      print(self.stats)
+
     def start_requests(self):
       session = self.Session()
       for legie in session.query(Legislators).filter(and_(Legislators.party == 'Republican', Legislators.house == 'Assembly')):
         yield scrapy.Request(legie.official_site_url + '/press-releases', meta={'legie_id':legie.id})
-      # test = 'https://ad40.asmrc.org/'
-      # yield scrapy.Request(test + 'press-releases', callback=self.parse, meta={'legie_id':1})
+
     def parse(self, response):
-      legie_id = response.meta.get('legie_id', 0)
-      if response.status == 404 and not response.meta.get('existing_redirect', False):
-        print('********* REDIRECT *********')
-        print(response.request.url)
-        yield scrapy.Request(response.request.url.replace('press-releases', 'press-release'), meta={existing_redirect:True, 'legie_id':legie_id})
+      legie_id = int(response.meta.get('legie_id', 0))
+      if response.status == 404:
+        self.stats[legie_id] = '404'
+        if response.meta.get('existing_redirect', False):
+          return
+        else:
+          # http://district21.cssrc.us/news/articles - need to deal with this
+          yield scrapy.Request(response.request.url.replace('/press-releases', 'press-release'), meta={'existing_redirect':True, legie_id:legie_id})
 
       for press_release_year in response.css('div#block-system-main div.view-footer div.views-row a::attr(href)').extract():
         if press_release_year is not None:
@@ -38,6 +52,8 @@ class StateAssemblyRepublicanPressReleasesSpider(scrapy.Spider):
         print(link)
         yield scrapy.Request(link, callback=self.parse_press_release, meta={'legie_id':legie_id})
 
+      self.stats[legie_id] = self.stats.get(legie_id,0) + 1
+      
       next_page = response.css('li.pager-next a::attr(href)').extract_first()
       if next_page is not None:
           next_page = response.urljoin(next_page)

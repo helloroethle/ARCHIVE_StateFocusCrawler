@@ -1,4 +1,5 @@
 import scrapy
+from scrapy import signals
 from sqlalchemy.orm import sessionmaker
 from ca_scraper.models import Legislators, db_connect, create_articles_table
 from datetime import datetime
@@ -12,6 +13,17 @@ class StateAssemblyDemocratPressReleasesSpider(scrapy.Spider):
       engine = db_connect()
       create_articles_table(engine)
       self.Session = sessionmaker(bind=engine)
+      self.stats = {}
+
+    @classmethod
+    def from_crawler(cls, crawler, *args, **kwargs):
+      spider = super(StateAssemblyDemocratPressReleasesSpider, cls).from_crawler(crawler, *args, **kwargs)
+      crawler.signals.connect(spider.spider_closed, signal=signals.spider_closed)
+      return spider
+
+    def spider_closed(self, spider):
+      print(self.stats)
+
     def start_requests(self):
       session = self.Session()
       for legie in session.query(Legislators).filter(and_(Legislators.party == 'Democrat', Legislators.house == 'Assembly')):
@@ -24,6 +36,8 @@ class StateAssemblyDemocratPressReleasesSpider(scrapy.Spider):
         print('********* REDIRECT *********')
         print(response.request.url)
         yield scrapy.Request(response.request.url.replace('press-releases', 'press-release'), meta={existing_redirect:True, legie_id:legie_id})
+
+      self.stats[legie_id] = self.stats.get(legie_id,0) + 1
 
       for press_release in response.css('div.view-press-release div.views-row'):
         link = press_release.css('h2 a::attr(href)').extract_first()

@@ -30,6 +30,7 @@ class StateSenateRepublicanPressReleasesSpider(scrapy.Spider):
       for legie in session.query(Legislators).filter(and_(Legislators.party == 'Republican', Legislators.house == 'Senate')):
         if legie.name != 'Vacant':
           yield scrapy.Request(legie.official_site_url + '/newsroom/releases', meta={'legie_id':legie.id})
+
     def parse(self, response):
       legie_id = int(response.meta.get('legie_id', 0))
       if response.status == 404:
