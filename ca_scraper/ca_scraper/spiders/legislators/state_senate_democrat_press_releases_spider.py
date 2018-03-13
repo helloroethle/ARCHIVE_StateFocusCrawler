@@ -26,7 +26,7 @@ class StateSenateDemocratPressReleasesSpider(scrapy.Spider):
         print(response.request.url)
         yield scrapy.Request(response.request.url.replace('newsroom/releases', 'news/articles'), meta={existing_redirect:True, legie_id:legie_id})
 
-      for press_release in response.css('div#block-system-main div.views-row'):
+      for press_release in response.css('#block-system-main div.views-row'):
         link = response.urljoin(press_release.css('div.field-name-title h2 a::attr(href)').extract_first())
         print(link)
         yield scrapy.Request(link, callback=self.parse_press_release, meta={'legie_id':legie_id})
@@ -39,7 +39,7 @@ class StateSenateDemocratPressReleasesSpider(scrapy.Spider):
     def parse_press_release(self, response):
       legie_id = response.meta.get('legie_id', 0)
       title = response.css('h1::text').extract_first()
-      content = ' '.join([x.strip() for x in response.css('div#block-system-main div.field-name-body *::text').extract() if x])
+      content = ' '.join([x.strip() for x in response.css('div.field-name-body *::text').extract() if x])
       timestamp = response.css('span.date-display-single::text').extract_first()
       timestamp = timestamp.replace('Monday,', '').replace('Tuesday,', '').replace('Wednesday,', '').replace('Thursday,', '').replace('Friday,', '').replace('Saturday,', '').replace('Sunday,', '')
       published = datetime.strptime(timestamp, "%B %d, %Y")
