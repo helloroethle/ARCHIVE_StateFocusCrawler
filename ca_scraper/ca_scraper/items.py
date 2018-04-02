@@ -17,6 +17,10 @@ class Article(Item):
     rake_keywords = Field()
     blob_sentiment = Field()
     nltk_sentiment = Field()
+    readability = Field()
+    word_frequency = Field()
+    word_count = Field()
+    unique_word_count = Field()
 
 class PressRelease(Item):
     title = Field()
@@ -29,6 +33,10 @@ class PressRelease(Item):
     rake_keywords = Field()
     blob_sentiment = Field()
     nltk_sentiment = Field()
+    readability = Field()
+    word_frequency = Field()
+    word_count = Field()
+    unique_word_count = Field()
 
 class Legislator(Item):
     state = Field()
@@ -38,3 +46,11 @@ class Legislator(Item):
     name = Field()
     official_site_url = Field()
     img_src = Field()
+    readability = Field()
+    press_release_count = Field()
+    article_count = Field()
+    issue_overview = Field()
+    source_overview = Field()
+    sentiment_overview = Field()
+    word_frequency = Field()
+    keywords = Field()

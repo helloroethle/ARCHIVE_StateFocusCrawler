@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, Integer, String, DateTime
+from sqlalchemy import create_engine, Column, Integer, String, DateTime, Integer, Numeric
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.engine.url import URL
 import ca_scraper.settings
@@ -31,6 +31,14 @@ class Legislators(DeclarativeBase):
     name = Column('name', String)
     official_site_url = Column('official_site_url', String)
     img_src = Column('img_src', String)
+    readability = Column('readability', Numeric)
+    press_release_count = Column('press_release_count', Integer)
+    article_count = Column('article_count', Integer)
+    issue_overview = Column('issue_overview', String)
+    source_overview = Column('source_overview', String)
+    sentiment_overview = Column('sentiment_overview', String)
+    word_frequency = Column('word_frequency', String)
+    keywords = Column('keywords', String)
 
 
 class PressReleases(DeclarativeBase):
@@ -48,6 +56,11 @@ class PressReleases(DeclarativeBase):
     rake_keywords = Column('rake_keywords', String)
     blob_sentiment = Column('blob_sentiment', String)
     nltk_sentiment = Column('nltk_sentiment', String)
+    readability = Column('readability', String)
+    word_frequency = Column('word_frequency', String)
+    word_count = Column('word_count', Integer)
+    unique_word_count = Column('unique_word_count', Integer)
+
 
 
 class Articles(DeclarativeBase):
@@ -66,3 +79,7 @@ class Articles(DeclarativeBase):
     rake_keywords = Column('rake_keywords', String)
     blob_sentiment = Column('blob_sentiment', String)
     nltk_sentiment = Column('nltk_sentiment', String)
+    readability = Column('readability', String)
+    word_frequency = Column('word_frequency', String)
+    word_count = Column('word_count', Integer)
+    unique_word_count = Column('unique_word_count', Integer)
